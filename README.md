@@ -2,8 +2,8 @@
 以下の内容は[TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview)
 を参考に少し補足を加えたものである．
 
-Ros2バージョンはHumble，TurtleBot3のモデルはburger，OSはUbuntu Server 22.04 LTSを用いる．
-(GUI環境を使いたい場合はUbuntu ServerをUbuntu Desktopと読み替えてほしい．)
+Ros2バージョンはHumble，TurtleBot3のモデルはburger，OSはUbuntu Server 22.04 LTSを用いる．  
+(GUI環境を使いたい場合はUbuntu ServerをUbuntu Desktopと読み替えてほしい．)  
 また，OpenCRの設定については説明しない．
 
 # SBC Setup
