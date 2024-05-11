@@ -77,7 +77,7 @@ $ sudo apt install openssh-server
 ```
 公開鍵認証などセキュリティ面の設定は説明しない.
 
-インストールできたらディスプレイ，キーボード，マウスを使わずにログインする場合に書いてあるように
+[上](MARKDOWN#ディスプレイ，キーボード，マウスを使わずにログインする場合)に書いてあるように
 SSH接続をする．
 
 ## 初期設定
@@ -104,8 +104,8 @@ $ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.
 ```
 $ reboot now
 ```
-> [!NOTE]
-> 再起動したらSSHで接続できることを確かめておく．
+
+再起動したらSSHで接続できることを確かめておく．
 
 ## apt upgradeの実行
 今はUbuntu 22.04LTSリリースした直後の状態のため，その後に行われたセキュリティアップデートなどが反映されていない．よって，以下のようにアップグレードを実行する
@@ -163,20 +163,34 @@ $ sudo udevadm trigger
 ## `ROS_DOMAIN_ID`を設定
 ROSドメインIDの設定ROS2のDDS通信では、同一ネットワーク環境下で通信するためにリモートPCとTurtleBot3の間で`ROS_DOMAIN_ID`を一致させる必要がある．次のコマンドで、TurtleBot3でSBCに`ROS_DOMAIN_ID`を割り当てる．
 - TurtleBot3のデフォルトIDは30
-- TurtleBot3のリモートPCとSBCのROS_DOMAIN_IDは30が推奨
+- TurtleBot3のリモートPCとSBCの`ROS_DOMAIN_ID`は30が推奨
 ```
 $ echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
-$ source ~/.bashrc
 ```
 > [!WARNING]
->同じネットワーク内の他のユーザーと同じROS_DOMAIN_IDを使用してはいけない．同じネットワーク環境下にあるユーザー間で通信の競合が発生する．
+>同じネットワーク内の他のユーザーと同じ`ROS_DOMAIN_ID`を使用してはいけない．同じネットワーク環境下にあるユーザー間で通信の競合が発生する．
 ## `LDS_MODEL`を設定
 LDSのモデルによって`LDS_01`もしくは`LDS_02`を設定する．
 ```
 $ echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc
-$ source ~/.bashrc
 ```
+## `TURTLEBOT3_MODEL`を設定
+`TURTLEBOT3_MODEL`を`burger`に設定し，`ROS_DOMAIN_ID`，`LDS_MODEL`，`TURTLEBOT3_MODEL`の設定を反映する．
+```
+$ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
 
+```
+> [!TIP]
+> 以下のコマンドについて補足
+> ```
+> $ echo 'Command' >> ~/.bashrc
+> $ source ~/.bashrc
+> ```
+> `echo "文字列" >> ファイル名`で指定のファイルに文字列を追記する．  
+> `source ファイル名`で指定のファイルを実行する．  
+> また，`~/.bashrc`とはbashシェルが立ち上げらるたびに実行されるファイルである．  
+> よって，上の二行のコマンドは一行目でシェルを立ち上げるたびに実行したい命令を追加し，  
+> 二行目でその命令を実行しているのである．
 
 以上でラズベリーパイ側の設定はおわりである．
 
