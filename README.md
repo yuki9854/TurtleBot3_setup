@@ -180,7 +180,7 @@ $ echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc
 `TURTLEBOT3_MODEL`を`burger`に設定し，`ROS_DOMAIN_ID`，`LDS_MODEL`，`TURTLEBOT3_MODEL`の設定を反映する．
 ```
 $ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
-
+$ source ~/.bashrc
 ```
 > [!TIP]
 > 以下のコマンドについて補足
