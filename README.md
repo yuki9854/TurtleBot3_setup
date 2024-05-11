@@ -183,10 +183,10 @@ $ source ~/.bashrc
 # エラー対策
 keyringのエラーが発生することがある
 ```
-W: GPG error: http://packages.ros.org/ros2/ubuntu jammy InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY {KEY}
+W: GPG error: http://packages.ros.org/ros2/ubuntu jammy InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY KEYNAME
 ```
-多分，次のコマンドで解決できる
+多分，次のコマンドで解決できる．(KEYNAMEの部分はエラーメッセージの英数字を入れる)
 ```
-$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F42ED6FBAB17C654
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys KEYNAME
 ```
 今，実行環境が手元に無い為詳しいことわからん
