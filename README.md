@@ -3,6 +3,7 @@
 を参考に少し補足を加えたものである．
 
 Ros2バージョンはHumble，TurtleBot3のモデルはburger，OSはUbuntu 22.04 LTSを用いる．
+また，OpenCRの設定については説明しない．
 # SBC Setup
 TurtleBot3が積むRaspberry Piのセッティングの手順を示す．
 ## OS(Ubuntu 22.04LTS)の書き込み
@@ -134,3 +135,58 @@ $ export LANG=en_US.UTF-8
 実行内容の詳細は[公式ROS2 Humbleインストールガイド](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)を参照
 
 ## ROSパッケージのインストールとビルド
+1. [ROSパッケージインストールスクリプト](/turtlebot3_setup_01.sh)を実行し，諸々のパッケージをインストールする．
+2. gitをインストールする
+```
+$ sudo apt install git
+```
+3. 以下のようにコマンドを実行する．実行内容の詳細は[TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview)参照．
+```
+$ mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src
+$ git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
+$ git clone -b ros2-devel https://github.com/ROBOTIS-GIT/ld08_driver.git
+$ cd ~/turtlebot3_ws/src/turtlebot3
+$ rm -r turtlebot3_cartographer turtlebot3_navigation2
+$ cd ~/turtlebot3_ws/
+$ echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
+$ source ~/.bashrc
+$ colcon build --symlink-install --parallel-workers 1
+$ echo 'source ~/turtlebot3_ws/install/setup.bash' >> ~/.bashrc
+$ source ~/.bashrc
+```
+## OpenCRと接続するUSBポートの設定する．
+```
+$ sudo cp `ros2 pkg prefix turtlebot3_bringup`/share/turtlebot3_bringup/script/99-turtlebot3-cdc.rules /etc/udev/rules.d/
+$ sudo udevadm control --reload-rules
+$ sudo udevadm trigger
+```
+## `ROS_DOMAIN_ID`を設定
+ROSドメインIDの設定ROS2のDDS通信では、同一ネットワーク環境下で通信するためにリモートPCとTurtleBot3の間で`ROS_DOMAIN_ID`を一致させる必要がある．次のコマンドで、TurtleBot3でSBCに`ROS_DOMAIN_ID`を割り当てる．
+- TurtleBot3のデフォルトIDは30
+- TurtleBot3のリモートPCとSBCのROS_DOMAIN_IDは30が推奨
+```
+$ echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
+$ source ~/.bashrc
+```
+> [!WARNING]
+>同じネットワーク内の他のユーザーと同じROS_DOMAIN_IDを使用してはいけない．同じネットワーク環境下にあるユーザー間で通信の競合が発生する．
+## `LDS_MODEL`を設定
+LDSのモデルによって`LDS_01`もしくは`LDS_02`を設定する．
+```
+$ echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc
+$ source ~/.bashrc
+```
+
+
+以上でラズベリーパイ側の設定はおわりである．
+
+# エラー対策
+keyringのエラーが発生することがある
+```
+W: GPG error: http://packages.ros.org/ros2/ubuntu jammy InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY {KEY}
+```
+多分，次のコマンドで解決できる
+```
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F42ED6FBAB17C654
+```
+今，実行環境が手元に無い為詳しいことわからん
