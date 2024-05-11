@@ -2,8 +2,10 @@
 以下の内容は[TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview)
 を参考に少し補足を加えたものである．
 
-Ros2バージョンはHumble，TurtleBot3のモデルはburger，OSはUbuntu 22.04 LTSを用いる．
+Ros2バージョンはHumble，TurtleBot3のモデルはburger，OSはUbuntu Server 22.04 LTSを用いる．
+(GUI環境を使いたい場合はUbuntu ServerをUbuntu Desktopと読み替えてほしい．)
 また，OpenCRの設定については説明しない．
+
 # SBC Setup
 TurtleBot3が積むRaspberry Piのセッティングの手順を示す．
 ## OS(Ubuntu 22.04LTS)の書き込み
@@ -12,7 +14,7 @@ Raspberry Pi Imagerを使用してOSをSDカードに書き込む．
 2. `デバイスをを選択`をクリックし，`Raspberry Pi 4`を選択
 3. `CHOOSE OS`をクリックし，`Other gerneral-purpose OS`を選択
 5. `Ubuntu`を選択
-6. `Ubuntu Server 22.04.5 LTS (64-bit)`を選択
+6. `Ubuntu Server 22.04 LTS (64-bit)`を選択
 7. `CHOOSE STORAGE`をクリックし，microSDカードを選択する
 8. `WRITE(次へ)`をクリックし，`設定を編集する`から必要な設定をする
 9. 設定を保存し指示に従ってOSを書き込む
@@ -130,12 +132,12 @@ $ export LANG=en_US.UTF-8
 ```
 
 ### ros2のインストール
-[ros2インストールスクリプト](/ros2_install.sh)を実行する．
+[ros2_install.sh](/ros2_install.sh)を実行する．
 
 実行内容の詳細は[公式ROS2 Humbleインストールガイド](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)を参照
 
 ## ROSパッケージのインストールとビルド
-1. [ROSパッケージインストールスクリプト](/turtlebot3_setup_01.sh)を実行し，諸々のパッケージをインストールする．
+1. [turtlebot3_setup_01.sh](/turtlebot3_setup_01.sh)を実行し，諸々のパッケージをインストールする．
 2. gitをインストールする
 ```
 $ sudo apt install git
