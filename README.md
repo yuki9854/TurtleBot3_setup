@@ -42,11 +42,11 @@ OSの書き込み時の設定でWiFiとSSHを有効にした場合はディス�
 WifIとSSHの設定がすんでいない場合は以下の作業を行う．
 #### WiFiの設定
 1. 以下のコマンドでネットワーク設定ファイルを開く
+
 ```
 $ sudo nano /writable/etc/netplan/50-cloud-init.yaml
 ```
-1. エディタが開いたら，以下のように内容を編集する．ただし，`WIFI_SSID`と`WIFI_PASSWORD`を実際の SSIDとパスワードに置き換える．
-
+2. エディタが開いたら，以下のように内容を編集する．ただし，`WIFI_SSID`と`WIFI_PASSWORD`を実際の SSIDとパスワードに置き換える．
 ```
 network:
   version: 2
@@ -62,7 +62,7 @@ network:
         WIFI_SSID:
           password: WIFI_PASSWORD
 ```
-1. `Ctrl`+`s`でファイルを保存し，`Ctrl`+`x`で終了する．
+3. `Ctrl`+`s`でファイルを保存し，`Ctrl`+`x`で終了する．
 
 #### SSHの設定
 Ubuntu 22.04 Serverの標準的なインストールを実施したのであれば、OpenSSHサーバーはインストール済みである．
